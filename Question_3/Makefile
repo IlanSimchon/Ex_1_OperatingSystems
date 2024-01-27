@@ -1,27 +1,25 @@
 CC = gcc
-
 CFLAGS = -Wall -g
 
-all: encode decode
+all: libCodec.so encode decode
 
 libCodec.o: libCodec.c libCodec.h
+	$(CC) $(CFLAGS) -c -fPIC libCodec.c
 
-	$(CC) $(CFLAGS) -c libCodec.c
+libCodec.so: libCodec.o
+	$(CC) -shared -o libCodec.so libCodec.o
+
 mainEncode.o: mainEncode.c libCodec.h
-
 	$(CC) $(CFLAGS) -c mainEncode.c
+
 mainDecode.o: mainDecode.c libCodec.h
-
 	$(CC) $(CFLAGS) -c mainDecode.c
-libCodec: libCodec.o
 
-	$(CC) $(CFLAGS) -o libCodec libCodec.o
-encode: libCodec.o mainEncode.o
+encode: libCodec.so mainEncode.o
+	$(CC) $(CFLAGS) -o encode mainEncode.o -L. -lCodec
 
-	$(CC) $(CFLAGS) -o encode libCodec.o mainEncode.o
-decode: libCodec.o mainDecode.o
+decode: libCodec.so mainDecode.o
+	$(CC) $(CFLAGS) -o decode mainDecode.o -L. -lCodec
 
-	$(CC) $(CFLAGS) -o decode libCodec.o mainDecode.o
 clean:
-
-	rm -f libCodec.o mainEncode.o mainDecode.o encode decode libCodec
+	rm -f libCodec.o mainEncode.o mainDecode.o encode decode libCodec.so
