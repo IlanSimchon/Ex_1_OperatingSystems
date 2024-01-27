@@ -23,3 +23,5 @@ decode: libCodec.so mainDecode.o
 
 clean:
 	rm -f libCodec.o mainEncode.o mainDecode.o encode decode libCodec.so
+
+//Don't foreget with dynamic libs: export LD_LIBRARY_PATH=.
