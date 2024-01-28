@@ -1,13 +1,13 @@
 CC = gcc
 CFLAGS = -Wall -g
 
-all: libCodec.so encode decode
+all: libencriptor.so encode decode
 
-libCodec.o: libCodec.c libCodec.h
-	$(CC) $(CFLAGS) -c -fPIC libCodec.c
+libencriptor.o: libCodec.c libCodec.h
+	$(CC) $(CFLAGS) -c -fPIC libCodec.c -o libencriptor.o
 
-libCodec.so: libCodec.o
-	$(CC) -shared -o libCodec.so libCodec.o
+libencriptor.so: libencriptor.o
+	$(CC) -shared -o libencriptor.so libencriptor.o
 
 mainEncode.o: mainEncode.c libCodec.h
 	$(CC) $(CFLAGS) -c mainEncode.c
@@ -15,13 +15,11 @@ mainEncode.o: mainEncode.c libCodec.h
 mainDecode.o: mainDecode.c libCodec.h
 	$(CC) $(CFLAGS) -c mainDecode.c
 
-encode: libCodec.so mainEncode.o
-	$(CC) $(CFLAGS) -o encode mainEncode.o -L. -lCodec
+encode: libencriptor.so mainEncode.o
+	$(CC) $(CFLAGS) -o encode mainEncode.o -L. -lencriptor
 
-decode: libCodec.so mainDecode.o
-	$(CC) $(CFLAGS) -o decode mainDecode.o -L. -lCodec
+decode: libencriptor.so mainDecode.o
+	$(CC) $(CFLAGS) -o decode mainDecode.o -L. -lencriptor
 
 clean:
-	rm -f libCodec.o mainEncode.o mainDecode.o encode decode libCodec.so
-
-//Don't foreget with dynamic libs: export LD_LIBRARY_PATH=.
+	rm -f libencriptor.o mainEncode.o mainDecode.o encode decode libencriptor.so
