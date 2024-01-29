@@ -1,18 +1,14 @@
 
+.PHONY: all clean
 
 all: Question_1 Question_2 Question_3 Question_4
+	make -C Question_1 all
+	make -C Question_2 all
+	make -C Question_3 all
+	make -C Question_4 all
 
-Question_1:
-		cd Question_1
-		make all
-		cd ..
-Question_2:
-		cd Question_2
-		make all
-		cd ..
-Question_3:
-		cd Question_3
-		make all
-Question_4:
-		cd Question_4
-		make all
+clean:
+	make -C Question_1 clean
+	make -C Question_2 clean
+	make -C Question_3 clean
+	make -C Question_4 clean

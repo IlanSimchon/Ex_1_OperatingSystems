@@ -3,8 +3,10 @@
 #include <unistd.h>
 #include <sys/wait.h>
 
+
+
 int main(int argc, char *argv[]) {
-    // Declare two pipes
+
     int pipe1[2];
     int pipe2[2];
 
@@ -17,78 +19,87 @@ int main(int argc, char *argv[]) {
     // fd[5] = pipefdtwo[0];
     // fd[6] = pipefdtwo[1];
 
-    // Check if pipes are created successfully
-    if (pipe(pipe1) == -1 || pipe(pipe2) == -1) {
-        printf("An error has occurred");
-        return 1;
+    // In pipes 0 means it works, 1 means it doesn't
+    if (pipe(pipe1) == -1 || pipe(pipe2) == -1){
+        printf("An error has occured while creating pipe.");
     }
 
-    pid_t child_pid;
-
-    // First child process: tar
+    pid_t child_pid;  // We we can see if fork was completed
+    // Phase 1 : first child - responsible for the tar
     child_pid = fork();
     if (child_pid == -1) {
-        printf("Error occurred during fork");
+        printf("An error has occured while forking.");
         return 1;
     } else if (child_pid == 0) {
-        // Close unnecessary ends of the pipes
-        close(pipe1[0]);
-        dup2(pipe1[1], 1); // Redirect stdout to pipe1
-        close(pipe1[1]);
-        close(0); // Close stdin
+        close(pipe1[0]); // Note that we will always close unused ends to ensure that the data flows the correct direction
         close(pipe2[0]);
         close(pipe2[1]);
-        // Execute 'tar' command with arguments
+
+        dup2(pipe1[1], 1);
+
+        close(pipe1[1]);
+
+
         execlp("tar", "tar", "cf", "-", argv[1], NULL);
-        perror("exec tar"); // Print error if execlp fails
+        printf("An error has occured while tar");
         return 1;
     }
 
-// Second child process: gzip
+    // Phase 2 :second child - responsible for the gzip
     child_pid = fork();
     if (child_pid == -1) {
-        printf("Error occurred during fork");
+        printf("An error has occured while forking.");
         return 1;
     } else if (child_pid == 0) {
         close(pipe1[1]);
-        dup2(pipe1[0], 0); // Redirect stdin to pipe1
-        close(pipe1[0]);
         close(pipe2[0]);
+
+        dup2(pipe1[0], 0);
+
+        close(pipe1[0]);
+
+        dup2(pipe2[1], 1);
+
         close(pipe2[1]);
-        // Execute 'gzip' command with arguments
-        execlp("gzip", "gzip", "-c", "-", NULL);  // Use -cf to force compression and write to the file
-        perror("exec gzip");
+
+
+        execlp("gzip", "gzip", "-c", NULL);
+        printf("An error has occured while gzip");
         return 1;
     }
 
-    // Third child process: gpg
+    // Phase 3: third child - responsible for the gpg
     child_pid = fork();
     if (child_pid == -1) {
-        printf("Error occurred during fork");
+        printf("An error has occured while forking.");
         return 1;
     } else if (child_pid == 0) {
-        close(pipe2[1]);
-        dup2(pipe2[0], 0); // Redirect stdin to pipe2
-        close(pipe2[0]);
         close(pipe1[0]);
         close(pipe1[1]);
-        // Execute 'gpg' command with arguments
-        execlp("gpg", "gpg", "--symmetric", "--passphrase", argv[2], "-o", "compressed.gpg", "-", NULL);
-        perror("exec gpg");
+        close(pipe2[1]);
+
+        dup2(pipe2[0], 0);
+
+        close(pipe2[0]);
+
+
+        execlp("gpg", "gpg", "--symmetric", "--passphrase", argv[2], "-o", "Compressed.gpg", "-", NULL);
+        //here we use symmetric so same passphrase is used for both encryption and decryption
+        printf("An error has occured while gpg");
         return 1;
     }
 
-    // Close unused ends of the pipes in the parent process
+    // Close all open pipe ends
     close(pipe1[0]);
     close(pipe1[1]);
     close(pipe2[0]);
     close(pipe2[1]);
 
-
+    // Wait for all processes to end
     wait(NULL);
     wait(NULL);
     wait(NULL);
 
-    printf("Compression completed. Output saved to 'compressed.gpg'\n");
+    printf("Compression Completed.\n");
     return 0;
 }
