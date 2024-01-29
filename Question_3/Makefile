@@ -1,13 +1,13 @@
 CC = gcc
 CFLAGS = -Wall -g
 
-all: libencriptor.so encode decode
+all: encriptor.so encode decode
 
 encriptor.o: libCodec.c libCodec.h
 	$(CC) $(CFLAGS) -c -fPIC libCodec.c -o encriptor.o
 
-encriptor.so: libencriptor.o
-	$(CC) -shared -o libencriptor.so encriptor.o
+encriptor.so: encriptor.o
+	$(CC) -shared -o encriptor.so encriptor.o
 
 mainEncode.o: mainEncode.c libCodec.h
 	$(CC) $(CFLAGS) -c mainEncode.c
