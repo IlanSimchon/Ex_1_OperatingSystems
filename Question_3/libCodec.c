@@ -122,7 +122,7 @@ int decode(char *textin, char *textout, int len, void *codec)
 
         int index = -1;
 
-        for (int j = 61; j < 124; j++)
+        for (int j = 62; j < 125; j++)
         {
 
             if (textin[i] == key[j])
@@ -158,74 +158,76 @@ void freeCodec(void *codec)
     free(codec);
 }
 
-// int main() {
 
-//     char key[62] = "bcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890a";
+int main() {
 
-//     // Test CREATECODEC function
+    char key[62] = "bcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890a";
 
-//     void *codec = createCodec(key);
+    // Test CREATECODEC function
 
-//     if (!codec) {
+    void *codec = createCodec(key);
 
-//         return 1;
+    if (!codec) {
 
-//     }
+        return 1;
 
-//     // Test ENCODE function
+    }
 
-//     char textin[] = "Hello, World!";
+    // Test ENCODE function
 
-//     char *textout = (char *)malloc((sizeof(textin) / sizeof(textin[0])) * sizeof(char));
+    char textin[] = "Hello, World!";
 
-//     if (!textout) {
+    char *textout = (char *)malloc((sizeof(textin) / sizeof(textin[0])) * sizeof(char));
 
-//         printf("Memory allocation failed.\n");
+    if (!textout) {
 
-//         free(codec);  // Free allocated memory for the codec before exiting
+        printf("Memory allocation failed.\n");
 
-//         return 1;
+        free(codec);  // Free allocated memory for the codec before exiting
 
-//     }
+        return 1;
 
-//     int len = sizeof(textin) / sizeof(textin[0]);
+    }
 
-//     encode(textin, textout, len, codec);
+    int len = sizeof(textin) / sizeof(textin[0]);
 
-//     printf("Original Text: %s\n", textin);
+    encode(textin, textout, len, codec);
 
-//     printf("Encoded Text: %s\n", textout);
+    printf("Original Text: %s\n", textin);
 
-//     //Test DECODE function
+    printf("Encoded Text: %s\n", textout);
 
-//     char textin2[] = "Ifmmp, Xpsme!";
+    //Test DECODE function
 
-//     char *textout2 = (char *)malloc((sizeof(textin2) / sizeof(textin2[0])) * sizeof(char));
+    char textin2[] = "Ifmmp, Xpsme!";
 
-//     if (!textout2) {
+    char *textout2 = (char *)malloc((sizeof(textin2) / sizeof(textin2[0])) * sizeof(char));
 
-//         printf("Memory allocation failed.\n");
+    if (!textout2) {
 
-//         free(codec);  // Free allocated memory for the codec before exiting
+        printf("Memory allocation failed.\n");
 
-//         return 1;
+        free(codec);  // Free allocated memory for the codec before exiting
 
-//     }
+        return 1;
 
-//     int len2 = sizeof(textin2) / sizeof(textin2[0]);
+    }
 
-//     decode(textin2, textout2, len2, codec);
+    int len2 = sizeof(textin2) / sizeof(textin2[0]);
 
-//     printf("Coded Text: %s\n", textin2);
+    decode(textin2, textout2, len2, codec);
 
-//     printf("Decode Text: %s\n", textout2);
+    printf("Coded Text: %s\n", textin2);
 
-//     // Free allocated memory
+    printf("Decode Text: %s\n", textout2);
 
-//     free(textout);
+    // Free allocated memory
 
-//     free(codec);
+    free(textout);
 
-//     return 0;
+    free(codec);
 
-// }
+    return 0;
+
+}
+

@@ -4,9 +4,9 @@ DEBUG_FLAGS = -g3
 
 .PHONY: all clean debug_bug_c debug_bug_c_debug debug_bug_b debug_bug_b_debug
 
-all: Bug_c Bug_c_debug 
+all: Bug_b Bug_b_debug Bug_c Bug_c_debug
 
-// B Bug
+# B Bug
 
 Bug_b: Bug_b.c
 	$(CC) $(CFLAGS) $^ -o $@
@@ -22,7 +22,7 @@ debug_bug_b_debug: Bug_b_debug
 
 
 
-// C Bug
+# C Bug
 
 Bug_c: Bug_c.c
 	$(CC) $(CFLAGS) $^ -o $@

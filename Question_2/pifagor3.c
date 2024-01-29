@@ -28,7 +28,7 @@ int main()
 
         zx = asin((double)y / z);
 
-        printf("Angle xy: %.2f radians\n Angle yz: %.2f radians\n Angle zx: %.2f radians\n", xy, yz, zx);
+        printf("Angle xy: %.2f radians\nAngle yz: %.2f radians\nAngle zx: %.2f radians\n", xy, yz, zx);
     }
 
     else if (pow(x, 2) + pow(z, 2) == pow(y, 2))

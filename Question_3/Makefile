@@ -16,10 +16,10 @@ mainDecode.o: mainDecode.c libCodec.h
 	$(CC) $(CFLAGS) -c mainDecode.c
 
 encode: encriptor.so mainEncode.o
-	$(CC) $(CFLAGS) -o encode mainEncode.o -L. -lencriptor
+	$(CC) $(CFLAGS) -o encode mainEncode.o encriptor.so
 
 decode: encriptor.so mainDecode.o
-	$(CC) $(CFLAGS) -o decode mainDecode.o -L. -lencriptor
+	$(CC) $(CFLAGS) -o decode mainDecode.o encriptor.so
 
 clean:
 	rm -f encriptor.o mainEncode.o mainDecode.o encode decode encriptor.so
