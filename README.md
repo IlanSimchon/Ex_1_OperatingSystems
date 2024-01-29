@@ -1,18 +1,17 @@
-# Linux, Libraries and Debugger
-
-Written by: 
-Ilan 
+# Linux, Libraries, and Debugger
+Authors:
+Ilan
 Maya Hayat
 
-This exercise was divided into 4 main part:
-## Part A : work with debugger
-Work with debugger in which we had to create 2 different bugs (one done by trying to access a location that wasn't set in advance and the other one was an infinite loop). We had to run our code with and without debugger, wait for a core dummped and run the 'gdb' in order to find the exact location of the error.
+This exercise is divided into four main parts:
 
-## Part B: Work with a built-in Library
-In the second part we had to create a program that receives 3 numbers that represent 3 different lengths of a triangle. The program had scan the lengths, and decide whether or not it is a Pythagorian triangle, if it is the program will calculate the 3 angles and display them, otherwise it would print error.
+## Part A: Working with Debugger
+In this part, we engaged with a debugger to identify and rectify two distinct bugs. The first bug involved attempting to access a location that wasn't pre-set, and the second was an infinite loop. We executed the code with and without the debugger, waited for a core dump, and utilized 'gdb' to precisely locate the errors.
 
- ## Part C: Create a Dynamic Library
- In the third part we had to create a dynamic library. We first had to implement 4 different functions which can be found in the "libcodec.c" class. After having implemented those functions which create a code to encode and decode text as well as free the memeory at the end we had to create 2 last classes which read from either the Input.txt or Output.txt and Encode/Decode the text found in the file depends on the user's need.
- After having done that, we've created a makefile in order to create our Dynamic Library. One thing user must keep in mind is that they must run "export LD_LIBRARY_PATH=." .
+## Part B: Utilizing a Built-in Library
+The second segment required the creation of a program that takes three numbers representing the lengths of a triangle. The program scanned these lengths, determined whether it was a Pythagorean triangle, calculated the three angles, and displayed them. In case of an error, an appropriate message was printed.
 
- ## Part D: Using Pipes to Compress into Zip
+## Part C: Creating a Dynamic Library
+This section involved creating a dynamic library. Initially, we implemented four distinct functions found in the "libcodec.c" class. These functions encoded and decoded text, as well as managed memory. Subsequently, two additional classes were created to read from either Input.txt or Output.txt, encoding/decoding text based on user requirements. A makefile was developed to facilitate the creation of our dynamic library. It's important to note that users need to run "export LD_LIBRARY_PATH=.".
+
+## Part D: Using Pipes to Compress into Zip
