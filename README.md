@@ -1,6 +1,6 @@
 # Linux, Libraries, and Debugger
 Authors:
-Ilan
+Ilan Simchon
 Maya Hayat
 
 This exercise is divided into four main parts:
