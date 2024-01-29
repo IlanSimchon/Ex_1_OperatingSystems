@@ -15,3 +15,5 @@ The second segment required the creation of a program that takes three numbers r
 This section involved creating a dynamic library. Initially, we implemented four distinct functions found in the "libcodec.c" class. These functions encoded and decoded text, as well as managed memory. Subsequently, two additional classes were created to read from either Input.txt or Output.txt, encoding/decoding text based on user requirements. A makefile was developed to facilitate the creation of our dynamic library. It's important to note that users need to run "export LD_LIBRARY_PATH=.".
 
 ## Part D: Using Pipes to Compress into Zip
+In the last part, we had to create a program that compresses a folder into a zip file. We had to implement this by using 2 pipes as was shown in class. After having created our Compressed.gpg file we had to create another program called myunzip which reverses the process.
+When running the program, we must make all and then ./myzip folderName code(1234 for example)
