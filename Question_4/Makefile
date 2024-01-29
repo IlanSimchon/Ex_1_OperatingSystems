@@ -10,7 +10,7 @@ myunzip: myunzip.c
 
 myzip: myzip.c
 	$(CC) $(CFLAGS) $^ -o $@
-	
+
 
 clean:
 	rm -f myzip myunzip
